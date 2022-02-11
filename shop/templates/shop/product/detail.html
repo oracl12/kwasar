@@ -1,0 +1,159 @@
+{% extends "shop/base/base.html" %}
+{% load embed_video_tags %}
+{#{% load embed_video_tags %}#}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+{% block content %}
+<div class="bg-light py-1">
+    <div class="container">
+        <div class="row" style="justify-content: center; text-align: center;">
+            <div class="col-md-6" style="margin-bottom: 2%">
+                <div>
+                    <img src="https://img.icons8.com/ios/50/000000/shake-phone.png"/>
+                </div>
+                <div>
+                    <strong>+38(099)483-33-74</strong><br>
+                    <strong>+38(096)749-76-56</strong>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <img src="https://img.icons8.com/ios/50/000000/time-machine.png"/>
+                </div>
+                <div>
+                    09:00 - 19:00<br>
+                    10:00 - 17:00
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <a href="{{ product.image.url }}"><img class="d-block w-100" src="{{ product.image.url }}" alt="Slide"></a>
+                            </div>
+                            {% if product.image1 %}
+                                <div class="carousel-item">
+                                    <a href="{{ product.image1.url }}"><img class="d-block w-100" src="{{ product.image1.url }}" alt="Slide"></a>
+                                </div>
+                            {% endif %}
+                            {% if product.image2 %}
+                                <div class="carousel-item">
+                                    <a href="{{ product.image2.url }}"><img class="d-block w-100" src="{{ product.image2.url }}" alt="Slide"></a>
+                                </div>
+                            {% endif %}
+                            {% if product.image3 %}
+                                <div class="carousel-item">
+                                    <a href="{{ product.image3.url }}"><img class="d-block w-100" src="{{ product.image3.url }}" alt="Slide"></a>
+                                </div>
+                            {% endif %}
+                            {% if product.image4 %}
+                                <div class="carousel-item">
+                                    <a href="{{ product.image4.url }}"><img class="d-block w-100" src="{{ product.image4.url }}" alt="Slide"></a>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Попередній</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Наступний</span>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-black mr-2">{{ product.name }}</h2>
+                    <p>Ціна</p>
+                    <p><strong class="text-primary h4">{{ product.price }}.грн</strong></p>
+                    <div class="mt-5 col-md-5">
+                        <form action="{% url "cart:cart_add" product.id %}" method="post">
+                            {% csrf_token %}
+                            {{ cart_product_form|crispy }}
+                            <input type="submit" class="buy-now btn btn-sm btn-primary" value="Додати до корзини">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col" style="margin-top: 3%"><h2>Опис</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><p>{{ product.description|linebreaks }}</p></div>
+                {% if product.link_youtube %}
+                    {% video product.link_youtube 'small' %}
+                {% endif %}
+        </div>
+    </div>
+    {#Here will be links for other site#}
+    <div class="site-section block-3 site-blocks-2 bg-light">
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="col-md-7 site-section-heading text-center pt-4">
+                    <h2>Посилання на наші сайти</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nonloop-block-3 owl-carousel">
+                        <div class="item">
+                            <div class="block-4 text-center">
+                                <figure class="block-4-image">
+                                    <img src="https://docs.google.com/uc?id=1vRVy6UHMs-qXngC4wWlH6I5tg-KcmcSC" alt="Image placeholder1"
+                                         class="img-fluid" style="height: 100px">
+                                </figure>
+                                <div class="block-4-text p-4">
+                                    <h3><a href="https://klad.in.ua">Klad.in.ua</a></h3>
+                                    <p class="mb-0">Oficial site</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="block-4 text-center">
+                                <figure class="block-4-image">
+                                    <img src="https://docs.google.com/uc?id=1g5Y5flUAPwrIO7zsz8kBirD0lu8thBuA" alt="Image placeholder"
+                                         class="img-fluid" style="height: 100px">
+                                </figure>
+                                <div class="block-4-text p-4">
+                                    <h3><a href="https://pelo.com.ua/ua/">Prom.ua</a></h3>
+                                    <p class="mb-0">Partners from prom.ua</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="block-4 text-center">
+                                <figure class="block-4-image">
+                                    <img src="https://docs.google.com/uc?id=1Qz1HRzUUML2c_NLoCz6S5drKaKLpqP6u" alt="Image placeholder"
+                                         class="img-fluid" style="height: 100px">
+                                </figure>
+                                <div class="block-4-text p-4">
+                                    <h3><a href="https://iskatel.in.ua">Iskatel.in.ua</a></h3>
+                                    <p class="mb-0">Other site</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

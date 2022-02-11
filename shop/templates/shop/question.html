@@ -1,0 +1,37 @@
+{% extends "shop/base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+{% endblock %}
+{% block content %}
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <form action="{% url 'shop:question' %}" method = 'POST'>{% csrf_token %}
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <label for="name" style="margin-right: 5px">П.І.Б.</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <label for="email">Email </label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="col-md-12" style="text-align: center">
+                        <label for="msg">Запитання</label>
+                    </div>
+                    <div class="col-md-12" style="margin-bottom: 10px; text-align: center">
+                        <input type="text" id="msg" name="msg" style="height: 100px">
+                    </div>
+                    <div class="col-md-12" style="text-align: center">
+                        <input type="submit" value="Відправити" style="width: 100px; background-color: #7971ea;">
+                    </div>
+                    <p style="text-align: center">
+                        {% if message %}
+                            {{ message }}
+                        {% endif %}
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

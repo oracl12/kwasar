@@ -1,0 +1,84 @@
+{% extends "shop/base/base.html" %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+    <div class="bg-light py-1">
+        <div class="container">
+            <div class="row" style="justify-content: center; text-align: center;">
+                <div class="col-md-6" style="margin-bottom: 2%">
+                    <div>
+                        <img src="https://img.icons8.com/ios/50/000000/shake-phone.png"/>
+                    </div>
+                    <div>
+                        <strong>+38(099)483-33-74</strong><br>
+                        <strong>+38(096)749-76-56</strong>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <img src="https://img.icons8.com/ios/50/000000/time-machine.png"/>
+                    </div>
+                    <div>
+                        09:00 - 19:00<br>
+                        10:00 - 17:00
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-9 order-2">
+                    {% if not category.slug %}
+                        <div style="text-align: center">
+                        <p>Сортування по ціні</p>
+                        <form action="{% url 'shop:product_list' %}" method = 'POST'>{% csrf_token %}
+                            <button type="submit" name="bt"  value="price" class="btn btn-primary">&#9650;</button>
+                            <button type="submit" name="bt"  value="-price" class="btn btn-primary">&#9660;</button>
+                        </form>
+                        <hr align="center">
+                        </div>
+                    {% endif %}
+
+                    <div class="row mb-5">
+                        {% for product in products %}
+                            <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                                <div class="block-4 text-center border">
+                                    <figure class="block-4-image">
+                                        <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}"
+                                                                                      alt="Image placeholder" class="img-fluid" style="height: 10vw;"></a>
+                                    </figure>
+                                    <div class="block-4-text p-4">
+                                        <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+                                        <p class="mb-0">{{ product.title }}</p>
+                                        <p class="text-primary font-weight-bold">{{ product.price }}.грн</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+                <div class="col-md-3 order-1 mb-5 mb-md-0">
+                    <div class="border p-4 rounded mb-4">
+                        <h3 class="mb-3 h6 text-uppercase text-black d-block">Категорії</h3>
+                        <ul class="list-unstyled mb-0">
+                            <li style="margin-bottom: 2%" {% if not category %} class="mb-1" {% endif %}>
+                                <a href="{% url "shop:product_list" %}" class="d-flex"><span>Всі</span></a>
+                            </li>
+                            {% for c in categories %}
+                                <li {% if category.slug == c.slug %} class="mb-1" {% endif %}>
+                                    <a  href="{{ c.get_absolute_url }}" class="d-flex">{{ c.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
